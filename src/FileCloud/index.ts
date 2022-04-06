@@ -7,13 +7,13 @@ import {
 } from "../FileCloudBase/FileCloudBase.types";
 import FileCloudBase from "../FileCloudBase";
 
-class FileCloud extends FileCloudBase {
+export default class FileCloud extends FileCloudBase {
   data: TDirectory = {
     type: FileStructTypeName.Directory,
     data: {}
   }
 
-  protected createDirectory(path: string[], currentDirectory: TDirectory = this.data) {
+  protected createDirectory(path: string[], currentDirectory: TDirectory = this.data):TDirectory {
     if (path.length === 0) {
       return currentDirectory;
     }
@@ -22,7 +22,7 @@ class FileCloud extends FileCloudBase {
 
     if (nextDirectory && nextDirectory.type === FileStructTypeName.Directory) {
       return this.createDirectory(path.slice(1), nextDirectory);
-    } else if (nextDirectory.type === FileStructTypeName.Directory) {
+    } else if (!nextDirectory) {
       currentDirectory.data = {
         ...currentDirectory.data,
         [path[0]]: {
@@ -50,10 +50,11 @@ class FileCloud extends FileCloudBase {
     const directoryAndFile = path.split('/');
     const foundDirectory = this.getDirectory(directoryAndFile.slice(0, -1));
     const fileName = directoryAndFile[directoryAndFile.length - 1];
+    const targetDirectory = foundDirectory ?? this.createDirectory(directoryAndFile.slice(0, -1));
 
-    if (foundDirectory && !foundDirectory.data[fileName]) {
-      foundDirectory.data = {
-        ...foundDirectory.data,
+    if (!targetDirectory.data[fileName]) {
+      targetDirectory.data = {
+        ...targetDirectory.data,
         [fileName]: {
           type: FileStructTypeName.File,
           size: size
