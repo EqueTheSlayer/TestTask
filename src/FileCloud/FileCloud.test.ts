@@ -1,0 +1,1 @@
+// const inputLine: TFileCloudInput[] = [[FileCloudCommand.GetFile, 'dir/13.txt'], [FileCloudCommand.AddFile, 'ada/15.txt', '2']]

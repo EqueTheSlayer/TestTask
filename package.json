@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/EqueTheSlayer/TestTask#readme",
   "dependencies": {
+    "@types/jest": "^27.4.1",
     "jest": "^27.5.1"
   },
   "devDependencies": {
