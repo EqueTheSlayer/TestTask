@@ -13,7 +13,7 @@ export default class FileCloud extends FileCloudBase {
     data: {}
   }
 
-  protected createDirectory(path: string[], currentDirectory: TDirectory = this.data):TDirectory {
+  protected createDirectory(path: string[], currentDirectory: TDirectory = this.data): TDirectory {
     if (path.length === 0) {
       return currentDirectory;
     }
@@ -75,7 +75,7 @@ export default class FileCloud extends FileCloudBase {
     const foundItem = foundDirectory?.data[fileName];
 
     if (foundItem?.type === FileStructTypeName.File) {
-      return foundItem.size ;
+      return foundItem.size;
     }
     return '';
   }
